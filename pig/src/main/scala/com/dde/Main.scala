@@ -10,10 +10,11 @@ object Main
 	def main(args: Array[String]): Unit = {
 		val prop = new Properties()
 		prop.setProperty("pig.splitCombination", "false")
+		prop.setProperty("pig.exec.mapPartAgg", "true")
 		val pigServer = new PigServer(ExecType.LOCAL, prop)
 
     		pigServer.debugOn()
-                pigServer.setDefaultParallel(20)
+                pigServer.setDefaultParallel(5)
 		pigServer.registerQuery("temp = LOAD '/home/davidde/GlobalLandTemperaturesByCity.csv' USING org.apache.pig.piggybank.storage.CSVLoader() as (dt:chararray,avg_temp:float,avg_temp_uncert:chararray,city:chararray,country:chararray,lat:chararray,longi:chararray);")
 		pigServer.registerQuery("temp = FOREACH temp GENERATE city, country, avg_temp;")
                 pigServer.registerQuery("temp = GROUP temp BY (city,country);")
