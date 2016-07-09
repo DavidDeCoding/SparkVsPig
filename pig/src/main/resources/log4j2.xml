@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Properties>
+        <Property name="log-path">logs</Property>
+        <!--<Property name="disableThreadContextStack">true</Property>-->
+        <!--<Property name="disableThreadContextMap">true</Property>-->
+        <!--<Property name="log4j2.disable.jmx">true</Property>-->
+    </Properties>
+
+    <Appenders>
+    <!--<Socket name="SOCKET" host="localhost" port="9500">-->
+      <!--<SerializedLayout />-->
+    <!--</Socket>-->
+
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <!--<JsonLayout complete="true" properties="true">-->
+            <PatternLayout>
+            <!--<Pattern>%d{ISO8601}</Pattern>-->
+            <Pattern>%d{ISO8601} | [%t] | %highlight{%-5level: %msg | %throwable{full}}%n</Pattern>
+            </PatternLayout>
+            <!--</JsonLayout>-->
+        </Console>
+
+  </Appenders>
+  <Loggers>
+    <Root level="INFO" includeLocation="false">
+      <AppenderRef ref="CONSOLE"/>
+      <!--<AppenderRef ref="SOCKET"/>-->
+    </Root>
+  </Loggers>
+</Configuration>
