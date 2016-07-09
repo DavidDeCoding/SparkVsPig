@@ -15,7 +15,7 @@ object Main
 
     		pigServer.debugOn()
                 pigServer.setDefaultParallel(5)
-		pigServer.registerQuery("temp = LOAD '/home/davidde/GlobalLandTemperaturesByCity.csv' USING org.apache.pig.piggybank.storage.CSVLoader() as (dt:chararray,avg_temp:float,avg_temp_uncert:chararray,city:chararray,country:chararray,lat:chararray,longi:chararray);")
+		pigServer.registerQuery("temp = LOAD '/home/davidde/GlobalLandTemperaturesByCity.csv' USING org.apache.pig.piggybank.storage.CSVLoader() as (dt:chararray,avg_temp:double,avg_temp_uncert:chararray,city:chararray,country:chararray,lat:chararray,longi:chararray);")
 		pigServer.registerQuery("temp = FOREACH temp GENERATE city, country, avg_temp;")
                 pigServer.registerQuery("temp = GROUP temp BY (city,country);")
 		pigServer.registerQuery("temp = FOREACH temp GENERATE FLATTEN(group), MAX(temp.avg_temp);")
