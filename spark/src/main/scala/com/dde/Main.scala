@@ -17,7 +17,7 @@ object Main
 			.option("inferSchema", "true")
 			.load("/home/davidde/GlobalLandTemperaturesByCity.csv")
 
-		val dfByCity = df.groupBy("City", "Country").agg(max("AverageTemperature"))
+		val dfByCity = df.select("City", "Country", "AverageTemperature").groupBy("City", "Country").agg(max("AverageTemperature"))
 		dfByCity.write
 			.format("com.databricks.spark.csv")
 			.option("header", "true")
