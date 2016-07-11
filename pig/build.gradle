@@ -37,6 +37,8 @@ dependencies {
     compile group: 'org.apache.hadoop', name: 'hadoop-hdfs', version: '2.7.2'
     compile group: 'org.apache.pig', name: 'pig', version: '0.16.0', classifier: 'h2'
     compile group: 'org.apache.pig', name: 'piggybank', version: '0.16.0'
+    compile group: 'org.apache.tez', name: 'tez-api', version: '0.8.3'
+
 
     // We use Scalatest for testing our library
     testCompile 'junit:junit:4.12'

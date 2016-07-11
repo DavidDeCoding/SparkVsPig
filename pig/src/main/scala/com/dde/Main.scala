@@ -4,6 +4,7 @@ import java.util.Properties
 import org.apache.pig.ExecType
 import org.apache.pig.PigServer
 import org.apache.pig.piggybank.storage._
+import org.apache.pig.backend.hadoop.executionengine.tez._
 
 object Main
 {
@@ -11,7 +12,7 @@ object Main
 		val prop = new Properties()
 		prop.setProperty("pig.splitCombination", "false")
 		prop.setProperty("pig.exec.mapPartAgg", "true")
-		val pigServer = new PigServer(ExecType.LOCAL, prop)
+		val pigServer = new PigServer("tez_local", prop)
 
     		pigServer.debugOn()
                 pigServer.setDefaultParallel(5)
