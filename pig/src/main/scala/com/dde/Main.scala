@@ -12,6 +12,8 @@ object Main
 		val prop = new Properties()
 		prop.setProperty("pig.splitCombination", "false")
 		prop.setProperty("pig.exec.mapPartAgg", "true")
+        prop.setProperty("mapred.tasktracker.map.tasks.maximum", "8")
+        prop.setProperty("mapred.tasktracker.reduce.tasks.maximum", "8")
 		val pigServer = new PigServer("tez_local", prop)
 
     		pigServer.debugOn()
