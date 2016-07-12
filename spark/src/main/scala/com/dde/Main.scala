@@ -24,8 +24,8 @@ object Main
 				StructField("Latitude", StringType, true),
 				StructField("Longitutde", StringType, true)))
 
-		class MyCSVParser(separator: Char) extends CSVParser(separator) with Serializable
-		val csvParser = new MyCSVParser(',')
+		// class MyCSVParser(separator: Char) extends CSVParser(separator) with Serializable
+		// val csvParser = new MyCSVParser(',')
 
 		val df = sql.read
 			.format("com.databricks.spark.csv")
