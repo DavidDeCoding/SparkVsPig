@@ -2,3 +2,4 @@ pig/.gradle/
 pig/build/
 spark/.gradle/
 spark/build/
+.DS_Store

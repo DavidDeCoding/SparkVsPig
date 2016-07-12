@@ -9,6 +9,7 @@ import org.apache.spark.sql.types.{StructType, StructField, StringType, DoubleTy
 object Main
 {
 	def main(args: Array[String]): Unit = {
+		val start = System.currentTimeMillis()
 		val conf = new SparkConf().setMaster("local[8]").setAppName("Playing with Fire")
 		val sc = new SparkContext(conf)
 		val sql = new SQLContext(sc)
@@ -32,5 +33,7 @@ object Main
 			.format("com.databricks.spark.csv")
 			.option("header", "false")
 			.save("/Users/daviddecoding/Misc/BigD/spark-output")
+		val end = System.currentTimeMillis()
+		println("Total Time Taken By the process: " + ((end - start) / 1000))
 	}
 }
