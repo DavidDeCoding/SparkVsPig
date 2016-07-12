@@ -9,10 +9,11 @@
 
 // Apply the scala plugin to add support for Scala
 apply plugin: 'scala'
+apply plugin: 'java'
 apply plugin: 'application'
 
 mainClassName='com.dde.Main'
-applicationDefaultJvmArgs = ["-Xmx4g", "-Xms4g", "-XX:+UseG1GC", "-XX:MaxGCPauseMillis=200", "-server"]
+//applicationDefaultJvmArgs = ["-Xmx4g", "-Xms4g", "-XX:+UseG1GC", "-XX:MaxGCPauseMillis=200", "-server"]
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -29,11 +30,13 @@ dependencies {
     compile group: 'org.apache.logging.log4j', name: 'log4j-1.2-api', version: '2.6.1'
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.6.1'
     compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.6.1'
+
     // Spark
     compile group: 'org.apache.spark', name: 'spark-core_2.11', version: '1.6.2'
     compile group: 'org.apache.spark', name: 'spark-sql_2.11', version: '1.6.2'
     compile group: 'com.databricks', name: 'spark-csv_2.11', version: '1.4.0'
-
+    compile group: 'com.univocity', name: 'univocity-parsers', version: '2.1.2'
+    compile group: 'com.opencsv', name: 'opencsv', version: '3.8'
 
     // We use Scalatest for testing our library
     testCompile 'junit:junit:4.12'
