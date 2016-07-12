@@ -9,7 +9,7 @@ import org.apache.spark.sql.types.{StructType, StructField, StringType, DoubleTy
 object Main
 {
 	def main(args: Array[String]): Unit = {
-		val conf = new SparkConf().setMaster("local[4]").setAppName("Playing with Fire")
+		val conf = new SparkConf().setMaster("local[8]").setAppName("Playing with Fire")
 		val sc = new SparkContext(conf)
 		val sql = new SQLContext(sc)
 		val schema = StructType(Array(
@@ -24,12 +24,13 @@ object Main
 			.format("com.databricks.spark.csv")
 			.option("header", "true")
 			.schema(schema)
-			.load("/home/davidde/GlobalLandTemperaturesByCity.csv")
+			.load("/Users/daviddecoding/Misc/BigD/GlobalLandTemperaturesByCity.csv")
 
-		val dfByCity = df.select("City", "Country", "AverageTemperature").groupBy("City", "Country").agg(max("AverageTemperature"))
+		import sql.implicits._ 
+		val dfByCity = df.repartition($"City", $"Country").select("City", "Country", "AverageTemperature").groupBy("City", "Country").agg(max("AverageTemperature"))
 		dfByCity.write
 			.format("com.databricks.spark.csv")
 			.option("header", "false")
-			.save("/home/davidde/spark-output")
+			.save("/Users/daviddecoding/Misc/BigD/spark-output")
 	}
 }
