@@ -26,9 +26,11 @@ object Main
 
 		class MyCSVParser(separator: Char) extends CSVParser(separator) with Serializable
 		val csvParser = new MyCSVParser(',')
+
 		// val df = sql.read
 		// 	.format("com.databricks.spark.csv")
 		// 	.option("header", "true")
+		// 	.option("nullValue", "")
 		// 	.schema(schema)
 		// 	.load("/Users/davidde/Personal/BigD/GlobalLandTemperaturesByCity.csv")
 		val csvRdd = sc.textFile("/Users/davidde/Personal/BigD/GlobalLandTemperaturesByCity.csv")
