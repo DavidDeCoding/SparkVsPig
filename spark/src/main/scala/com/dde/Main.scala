@@ -42,10 +42,10 @@ object Main
 		val dfByCity = df.repartition(8, $"City", $"Country")
 		dfByCity.explain()
 		dfByCity.select("City", "Country", "AverageTemperature").groupBy("City", "Country").agg(max("AverageTemperature")).write
-			.format("json")
-			// .format("com.databricks.spark.csv")
-			// .option("header", "false")
-			.save("/Users/davidde/Personal/BigD/spark-output")
+				.format("json")
+				// .format("com.databricks.spark.csv")
+				// .option("header", "false")
+				.save("/Users/davidde/Personal/BigD/spark-output")
 		val end = System.currentTimeMillis()
 		println("Total Time Taken By the process: " + ((end - start) / 1000))
 	}
