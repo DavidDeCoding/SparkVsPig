@@ -23,6 +23,9 @@ object Main
 				StructField("Country", StringType, false),
 				StructField("Latitude", StringType, true),
 				StructField("Longitutde", StringType, true)))
+
+		class MyCSVParser(separator: Char) extends CSVParser(separator) with Serializable
+		val csvParser = new MyCSVParser(',')
 		// val df = sql.read
 		// 	.format("com.databricks.spark.csv")
 		// 	.option("header", "true")
@@ -30,7 +33,7 @@ object Main
 		// 	.load("/Users/davidde/Personal/BigD/GlobalLandTemperaturesByCity.csv")
 		val csvRdd = sc.textFile("/Users/davidde/Personal/BigD/GlobalLandTemperaturesByCity.csv")
 						.filter(line => !line.contains("AverageTemperature"))
-						.map(line => new CSVParser(',').parseLine(line))
+						.map(line => csvParser.parseLine(line))
 						.filter(cells => !cells(1).isEmpty)
 						.map(cells => Row(cells(0), cells(1).toDouble, cells(2), cells(3), cells(4), cells(5), cells(6)))
 		val df = sql.createDataFrame (csvRdd, schema)
