@@ -27,18 +27,20 @@ object Main
 		class MyCSVParser(separator: Char) extends CSVParser(separator) with Serializable
 		val csvParser = new MyCSVParser(',')
 
-		// val df = sql.read
-		// 	.format("com.databricks.spark.csv")
-		// 	.option("header", "true")
-		// 	.option("nullValue", "")
-		// 	.schema(schema)
-		// 	.load("/Users/davidde/Personal/BigD/GlobalLandTemperaturesByCity.csv")
-		val csvRdd = sc.textFile("/Users/davidde/Personal/BigD/GlobalLandTemperaturesByCity.csv")
-						.filter(line => !line.contains("AverageTemperature"))
-						.map(line => csvParser.parseLine(line))
-						.filter(cells => !cells(1).isEmpty)
-						.map(cells => Row(cells(0), cells(1).toDouble, cells(2), cells(3), cells(4), cells(5), cells(6)))
-		val df = sql.createDataFrame (csvRdd, schema)
+		val df = sql.read
+			.format("com.databricks.spark.csv")
+			.option("header", "true")
+			.option("nullValue", "")
+			.option("mode", "FAILFAST")
+			.option("parserLib", "univocity")
+			.schema(schema)
+			.load("file:///Users/davidde/Personal/BigD/GlobalLandTemperaturesByCity.csv")
+		// val csvRdd = sc.textFile("/Users/davidde/Personal/BigD/GlobalLandTemperaturesByCity.csv")
+		// 				.filter(line => !line.contains("AverageTemperature"))
+		// 				.map(line => csvParser.parseLine(line))
+		// 				.filter(cells => !cells(1).isEmpty)
+		// 				.map(cells => Row(cells(0), cells(1).toDouble, cells(2), cells(3), cells(4), cells(5), cells(6)))
+		// val df = sql.createDataFrame (csvRdd, schema)
 
 		import sql.implicits._
 		val dfByCity = df.repartition(8, $"City", $"Country")
