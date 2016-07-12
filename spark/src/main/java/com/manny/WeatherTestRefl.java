@@ -17,7 +17,6 @@ public class WeatherTestRefl
         SparkConf sparkConf = new SparkConf ();
         sparkConf.setMaster ("local[8]");
         sparkConf.setAppName ("JavaSparkSQL");
-        sparkConf.setJars (new String[] { "/Users/mbacolas/hrv_projects/hrv_20_percent_time/build/libs/spark_poc-1.0-SNAPSHOT.jar" });
         sparkConf.set ("spark.cores.max", "8");
         sparkConf.set ("spark.serializer", "org.apache.spark.serializer.KryoSerializer");
         sparkConf.set ("spark.executor.memory", "5g");
